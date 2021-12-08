@@ -20,4 +20,18 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+router.post("/", async (req, res) => {
+  const post = new Post({
+    title: req.body.title,
+    description: req.body.description,
+  });
+
+  try {
+    const newPost = await post.save();
+    res.json(newPost);
+  } catch (err) {
+    res.json({ msg: err });
+  }
+});
+
 module.exports = router;
