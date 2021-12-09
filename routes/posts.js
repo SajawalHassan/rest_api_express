@@ -28,7 +28,7 @@ router.delete("/:id", async (req, res) => {
     const removedPost = await Post.remove({ _id: req.params.id }); // Removes post
     res.json(removedPost);
   } catch (err) {
-    res.json({ msg: err }); // If it finds an error while doing so send json response of the error
+    res.json({ msg: err }); // If it finds an error, send json response of the errorjj
   }
 });
 
@@ -43,7 +43,20 @@ router.post("/", async (req, res) => {
     const newPost = await post.save(); // Adds post
     res.json(newPost);
   } catch (err) {
-    res.json({ msg: err }); // If it finds an error while doing so send json response of the error
+    res.json({ msg: err }); // If it finds an error, send json response of the error
+  }
+});
+
+// Update post
+router.put("/:id", async (req, res) => {
+  try {
+    const updPost = await Post.updateOne(
+      { _id: req.params.id }, // Matches all posts id to url id param if it matches it knows to update that one
+      { $set: { title: req.body.title, description: req.body.description } } // Setting which options can be updated
+    );
+    res.json(updPost);
+  } catch (err) {
+    res.json({ msg: err }); // If it finds an error, send json response of the error
   }
 });
 
