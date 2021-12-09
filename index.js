@@ -1,8 +1,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const postRoute = require("./routes/posts");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+
+const postRoute = require("./routes/posts");
+const authRoute = require("./routes/auth");
 
 require("dotenv/config");
 
@@ -18,7 +20,8 @@ app.get("/", (req, res) => {
 });
 
 // Saying all routes in "postRoute" should start with "/posts"
-app.use("/posts", postRoute);
+app.use("/api/posts", postRoute);
+app.use("/api/user", authRoute);
 
 // Connection db
 mongoose.connect(process.env.DB_CONNECTION, () =>
